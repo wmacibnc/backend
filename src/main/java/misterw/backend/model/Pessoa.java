@@ -1,9 +1,15 @@
 package misterw.backend.model;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Pessoa {
@@ -13,11 +19,13 @@ public class Pessoa {
 	private Long id;
 
 	private String nome;
+	private LocalDateTime dataNascimento;
+	
+	@OneToMany(mappedBy="pessoa",cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Endereco> enderecos = new ArrayList<>();
+	
 	private String observacao;
 
-	/**
-	 * Construtor padrão
-	 */
 	public Pessoa() {
 		super();
 	}
@@ -36,6 +44,22 @@ public class Pessoa {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public LocalDateTime getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDateTime dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	public String getObservacao() {
